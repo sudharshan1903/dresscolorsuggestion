@@ -6,6 +6,7 @@ import { GlobalService } from '../services/GlobalService';
 import { Link } from 'react-router-dom';
 import {BASE_URL} from '../api/Api'
 const DressTheme = () => {
+  axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
   const [dressThemes, setDressThemes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [collection, setCollection] = useState();

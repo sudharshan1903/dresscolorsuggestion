@@ -7,6 +7,7 @@ import { BASE_URL } from '../api/Api';
 const WrappingChildren = createContext();
 
 export const WrapperData = ({ children }) => {
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
     const { directPage } = Navigation();
 
     const [userName, setUserName] = useState('');

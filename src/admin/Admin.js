@@ -9,6 +9,7 @@ import { BASE_URL } from '../api/Api';
 
 
 const Admin = () => {
+  axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
   const style = {
     position: 'absolute',
     top: '50%',
