@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import TopBar from '../components/TopBar';
 import axios from 'axios';
 import { Box, Button, TextField, Typography, Paper } from '@mui/material';
+import { BASE_URL } from '../api/Api';
 
 
 
@@ -33,8 +34,7 @@ const Admin = () => {
       formData.append('file', imageFiles[0]);
   
       try {
-        const response = await axios.post('http://localhost:4000/AdminUpload', formData);
-        console.log(response.data, 'response.data');
+        const response = await axios.post(`${BASE_URL}/AdminUpload`, formData);
         setResponsify(response.data.message);
         notify();
       } catch (error) {

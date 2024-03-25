@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Typography, ThemeProvider, createTheme, Button, Circul
 import Carousel from 'react-material-ui-carousel';
 import { GlobalService } from '../services/GlobalService';
 import { Link } from 'react-router-dom';
+import {BASE_URL} from '../api/Api'
 const DressTheme = () => {
   const [dressThemes, setDressThemes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,10 +21,10 @@ const DressTheme = () => {
       },  
     },
   });
-
+console.log(BASE_URL,"baseurl");
   const anotherChoice = async () => {
     try {
-      const dressCollection = await axios.get('http://localhost:4000/dressTheme');
+      const dressCollection = await axios.get(`${BASE_URL}/dressTheme`);
       setCollection(JSON.parse(dressCollection.data[0].dressImage));
     } catch (error) {
       console.error('Error fetching dress theme:', error);
@@ -33,9 +34,9 @@ const DressTheme = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/homeTheme');
+        const response = await axios.get(`${BASE_URL}/homeTheme`);
         const resdata = response.data;
-        const dressCollection = await axios.get('http://localhost:4000/dressTheme');
+        const dressCollection = await axios.get(`${BASE_URL}/dressTheme`);
         setCollection(JSON.parse(dressCollection.data[0].dressImage));
 
         for (let i = 0; i < resdata.length; i++) {

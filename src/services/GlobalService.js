@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from 'react';
 import Navigation from './useNavigation';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { BASE_URL } from '../api/Api';
 
 const WrappingChildren = createContext();
 
@@ -50,7 +51,7 @@ export const WrapperData = ({ children }) => {
                 password: password,
             };
 
-            const response = await axios.post('http://localhost:4000/Register', userRegister);
+            const response = await axios.post(`${BASE_URL}/Register`, userRegister);
 
             if (response.data.success) {
                 setIsregister(true);
@@ -88,7 +89,7 @@ const handleLogin = async () => {
             password: password
         };
 
-        const response = await axios.post('http://localhost:4000/Login', userLogin);
+        const response = await axios.post(`${BASE_URL}/Login`, userLogin);
         const data = response.data;
 
         if (data.success) {
