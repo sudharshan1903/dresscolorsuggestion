@@ -35,6 +35,7 @@ const Admin = () => {
       formData.append('file', imageFiles[0]);
   
       try {
+        console.log(BASE_URL,"BASE_URL");
         const response = await axios.post(`${BASE_URL}/AdminUpload`, formData);
         setResponsify(response.data.message);
         notify();
