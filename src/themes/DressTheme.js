@@ -4,13 +4,14 @@ import { AppBar, Toolbar, Typography, ThemeProvider, createTheme, Button, Circul
 import Carousel from 'react-material-ui-carousel';
 import { GlobalService } from '../services/GlobalService';
 import { Link } from 'react-router-dom';
-import {BASE_URL} from '../api/Api'
+import { BASE_URL } from '../api/Api';
+
 const DressTheme = () => {
   axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-  const [dressThemes, setDressThemes] = useState([]);
+  const [homeThemes, setHomeThemes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [collection, setCollection] = useState();
-  const {handleLogout} =GlobalService(); 
+  const { handleLogout } = GlobalService();
 
   const theme = createTheme({
     palette: {
@@ -19,14 +20,14 @@ const DressTheme = () => {
       },
       secondary: {
         main: '#ffffff',
-      },  
+      },
     },
   });
-console.log(BASE_URL,"baseurl");
+
   const anotherChoice = async () => {
     try {
       const dressCollection = await axios.get(`${BASE_URL}/dressTheme`);
-      setCollection(JSON.parse(dressCollection.data[0].dressImage));
+      await setCollection(dressCollection.data[0].dressImage);
     } catch (error) {
       console.error('Error fetching dress theme:', error);
     }
@@ -38,13 +39,14 @@ console.log(BASE_URL,"baseurl");
         const response = await axios.get(`${BASE_URL}/homeTheme`);
         const resdata = response.data;
         const dressCollection = await axios.get(`${BASE_URL}/dressTheme`);
-        setCollection(JSON.parse(dressCollection.data[0].dressImage));
+        await setCollection(dressCollection.data[0].dressImage);
 
+        let homeTheme = [];
         for (let i = 0; i < resdata.length; i++) {
-          resdata[i].dressImage = JSON.parse(resdata[i].dressImage);
+          homeTheme.push({ dressImage: resdata[i].dressImage });
         }
 
-        setDressThemes(resdata);
+        await setHomeThemes(homeTheme);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -63,11 +65,11 @@ console.log(BASE_URL,"baseurl");
             <Typography variant='h5' component='div' sx={{ flexGrow: 1 }} color='secondary' gutterBottom>
               DAILY DRESS COLOR SUGGESTION
             </Typography>
-             {localStorage.getItem('email') && (
-          <Button variant="contained" color="error" onClick={handleLogout}>
-            Logout
-          </Button>
-        )}
+            {localStorage.getItem('email') && (
+              <Button variant="contained" color="secondary" onClick={handleLogout}>
+                Logout
+              </Button>
+            )}
           </Toolbar>
         </AppBar>
       </ThemeProvider>
@@ -75,55 +77,52 @@ console.log(BASE_URL,"baseurl");
       {loading ? (
         <CircularProgress style={{ marginTop: '100px' }} />
       ) : (
-        <>
         <Carousel>
-      {dressThemes.map((item, index) => (
-         <Paper key={index}>
+          {homeThemes.map((item, index) => (
+            <Paper key={index}>
+              <img
+                src={item.dressImage}
+                alt={`dress-${index}`}
+                style={{
+                  marginTop: '80px',
+                  width: '400px',
+                  height: '400px',
+                  objectFit: 'cover',
+                  borderRadius: '10px',
+                  marginBottom: '20px'
+                }}
+              />
+            </Paper>
+          ))}
+        </Carousel>
+      )}
+
+      {localStorage.getItem('email') ? 
+        <>
           <img
-            src={item.dressImage[0]}
-            alt={`dress-${index}`}
+            className='collections'
+            src={collection}
+            alt='collections'
             style={{
-              marginTop:'80px',
-              width: '400px',
-              height: '400px',
+              width: '500px',
+              height: '500px',
               objectFit: 'cover',
-              borderRadius: '10px', 
-              marginBottom:'20px'
+              margin: '20px',
+              borderRadius: '60px',
             }}
           />
-         </Paper>
-
-      ))}
-    </Carousel>
+          <Button style={{ bottom: '15px' }} variant='contained' color='primary' onClick={anotherChoice}>
+            Another Choice
+          </Button>
         </>
-      )}
-    {localStorage.getItem('email') ? 
-    <>
-    <img
-        className='collections'
-        src={collection}
-        alt='collections'
-        style={{
-          width: '500px',
-          height: '500px',
-          objectFit: 'cover',
-          margin: '20px',
-          borderRadius: '60px',
-        }}
-      />
-      <Button style={{ bottom: '15px' }} variant='contained' color='primary' onClick={anotherChoice}>
-        Another Choice
-      </Button>
-    </>
-    
-    :
-    <>
-    <h1>YOU SHOULD BE LOGIN..... </h1>
-    <p>
-          Already have an account? <Link to="/">Login here</Link>
-        </p>
-    </>
-    }
+        :
+        <>
+          <h1>YOU SHOULD BE LOGIN..... </h1>
+          <p>
+            Already have an account? <Link to="/">Login here</Link>
+          </p>
+        </>
+      }
     </>
   );
 };
