@@ -99,7 +99,9 @@ const DressTheme = () => {
 
       {localStorage.getItem('email') ? 
         <>
-          <img
+        <center>
+        <div className='collectionCards'>
+        <img
             className='collections'
             src={collection}
             alt='collections'
@@ -111,7 +113,11 @@ const DressTheme = () => {
               borderRadius: '60px',
             }}
           />
-          <Button style={{ bottom: '15px' }} variant='contained' color='primary' onClick={anotherChoice}>
+        </div>
+
+        </center>
+
+          <Button style={{ top: '15px' }} variant='contained' color='primary' onClick={anotherChoice}>
             Another Choice
           </Button>
         </>
