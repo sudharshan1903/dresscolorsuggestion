@@ -68,3 +68,76 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+Daily Dress Color Suggestion
+Daily Dress Color Suggestion is a web application designed to provide users with daily dress color suggestions based on various themes. Whether you're looking for inspiration for your outfit of the day or just want to explore different color combinations, this app has you covered. With a user-friendly interface and a wide range of dress themes to choose from, finding the perfect look has never been easier.
+
+Table of Contents
+
+    Features
+    Technologies Used
+    Installation
+    Usage
+    API Endpoints
+    Contributing
+    License
+
+Features
+
+    User Authentication: Users can register and log in securely using email and password authentication.
+    Daily Dress Themes: Users can view daily dress color suggestions based on different themes.
+    Admin Functionality: Administrators can log in and upload new dress themes for users to view.
+    Responsive Design: The application is designed to be responsive and compatible with various devices.
+
+Technologies Used
+
+    Backend: Node.js with Express.js, MongoDB for database management, bcrypt for password hashing, and dotenv for environment variable management.
+    Frontend: React.js with React Router for routing, Material-UI for UI components, axios for HTTP requests, and react-toastify for notification messages.
+
+Installation
+
+    Clone the repository:
+git clone <repository_url>
+
+    Install dependencies for both the frontend and backend:
+cd frontendrepo
+npm install
+
+cd backendrepo
+npm install
+
+    Set up environment variables:
+
+Create a .env file in the backend directory and add the following variables:
+
+PORT
+MONGO_URL=<your_mongodb_connection_string>
+
+    Start the development servers:
+cd frontendrepo
+npm start
+
+cd backendrepo
+npm start
+Usage
+
+    Open the application in your web browser.
+    Register or log in to access the dress themes.
+    View daily dress color suggestions and upload new themes if you are an administrator.
+
+API Endpoints
+
+    GET /homeTheme: Retrieve all available home themes.
+    GET /dressTheme: Retrieve a random dress theme.
+    POST /Register: Register a new user.
+    POST /Login: Log in an existing user.
+    POST /AdminLogin: Log in as an administrator.
+    POST /AdminUpload: Upload a new dress theme (admin only).
+
+Contributing
+
+We welcome contributions from the community! If you have any suggestions for improvements, bug fixes, or new features, please feel free to open an issue or submit a pull request.
+License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
