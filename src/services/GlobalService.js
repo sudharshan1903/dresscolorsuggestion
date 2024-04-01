@@ -14,6 +14,7 @@ export const WrapperData = ({ children }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isregister, setIsregister] = useState(false);
+    const [isShowPassword,setIsShowPassword] = useState(false)
     const notifySuccess = (message) => toast.success(message);
     const notifyError = (message) => toast.error(message);
 
@@ -124,6 +125,10 @@ const handleLogin = async () => {
         notifySuccess('Logged out successfully!');
         directPage('');
     };
+    //handle visible password
+    const passwordVisible = ()=>{
+        setIsShowPassword(!isShowPassword);
+    }
 
     return (
         <WrappingChildren.Provider
@@ -135,7 +140,9 @@ const handleLogin = async () => {
                 isregister,setIsregister,
                 handleRegister,
                 handleLogin,
-                handleLogout
+                handleLogout,
+                isShowPassword,
+                passwordVisible
             }}
         >
             {children}

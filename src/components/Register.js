@@ -2,11 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Box, Button, TextField, Typography, Paper } from '@mui/material';
+import { Box, Button, TextField, Typography, Paper,IconButton, InputAdornment, } from '@mui/material';
 import { GlobalService } from '../services/GlobalService';
+import {Visibility,VisibilityOff} from '@mui/icons-material';
 
 const Register = () => {
-  const { userName, setUserName, email, setEmail, password, setPassword, handleRegister } = GlobalService();
+  const { userName, setUserName, email, setEmail, password, setPassword, handleRegister,passwordVisible,isShowPassword } = GlobalService();
 
   return (
     <div style={{ backgroundImage: `url('/image/background.svg')`, backgroundSize: 'cover', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -39,7 +40,7 @@ const Register = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
-            type="password"
+            type={isShowPassword ? "text" : "password"}
             label="Password"
             name="password"
             color="success"
@@ -48,6 +49,19 @@ const Register = () => {
             margin="normal"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={passwordVisible}
+                    edge="end"
+                  >
+                    {isShowPassword? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Button variant="contained" color="success" onClick={handleRegister}>
             REGISTER
